@@ -1,13 +1,19 @@
 import java.util.*;
 
+private static final double RADIO_TIERRA_KM = 6371.0;
+
 public class MetroLyon {
 
   static class Estacion {
     String nombre;
     char linea;
-    Estacion(String nombre, char linea) {
+    double latitud;
+    double longitud;
+    Estacion(String nombre, char linea, double latitud, double longitud) {
       this.nombre = nombre;
       this.linea = linea;
+      this.latitud = latitud;
+      this.longitud = longitud;
     }
   }
 
@@ -105,17 +111,20 @@ public class MetroLyon {
     Collections.reverse(camino); // El camino se construye al revés, por lo que hay que invertirlo
     return camino;
   }
-
+  
+  //La fórmula de Haversine te dará la distancia en línea recta entre las estaciones, que puedes convertir en una estimación de tiempo de viaje multiplicando por el tiempo promedio que se tarda en viajar 1 km.
   private double calcularEstimado(Estacion desde, Estacion hasta) {
-    // Supongamos que el tiempo promedio entre cada estación es de 2 minutos
-    double tiempoPromedioPorEstacion = 2.0;
+    double deltaLat = Math.toRadians(hasta.latitud - desde.latitud);
+    double deltaLon = Math.toRadians(hasta.longitud - desde.longitud);
+    double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+              Math.cos(Math.toRadians(desde.latitud)) * Math.cos(Math.toRadians(hasta.latitud)) *
+              Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    double distancia = RADIO_TIERRA_KM * c;
 
-    // La estimación puede ser el número de letras de diferencia en los nombres,
-    // lo que es un placeholder para un cálculo basado en la posición o índice de las estaciones
-    int estimacionDeNumeroDeEstaciones = Math.abs(desde.nombre.length() - hasta.nombre.length());
-
-    // Devolvemos una estimación del tiempo total basada en la cantidad de estaciones intermedias
-    return estimacionDeNumeroDeEstaciones * tiempoPromedioPorEstacion;
+    // Suponiendo que se tiene un tiempo de viaje promedio por kilómetro, se puede calcular una estimación
+    double tiempoPromedioPorKm = 2; // El tiempo promedio que se tarda en recorrer 1 km (TODO: Averiguar cual es el tiempo real)
+    return distancia * tiempoPromedioPorKm;
   }
 
   public static void main(String[] args) {
@@ -123,7 +132,8 @@ public class MetroLyon {
     // Implementar y ejecutar el algoritmo A*
     Grafo metro = new Grafo();
     // Añadir estaciones
-    metro.agregarEstacion("Bellecour", 'A');
+    metro.agregarEstacion("Bellecour", 'A', 45.75794, 4.83368);
+    metro.agregarEstacion("Bellecour", 'D', 45.75794, 4.83368);
     // ... Añadir el resto de las estaciones con su respectiva línea
 
     // Añadir conexiones
