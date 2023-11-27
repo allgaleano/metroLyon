@@ -1,6 +1,7 @@
 package src.metro;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -18,20 +19,18 @@ public class Grafo {
   }
 
   void agregarConexion(Estacion origen, Estacion destino, double tiempo) {
-    Estacion nodoOrigen = obtenerEstacion(origen);
-    Estacion nodoDestino = obtenerEstacion(destino);
+    Estacion nodoOrigen = obtenerEstacion(origen.getNombre(), origen.getLinea());
+    Estacion nodoDestino = obtenerEstacion(destino.getNombre(), destino.getLinea());
 
     adyacencias.get(nodoOrigen).add(new Conexion(nodoDestino, tiempo));
   }
 
-  Estacion obtenerEstacion(Estacion nombre) {
-    for (Estacion e : adyacencias.keySet()) {
-      if (e.getNombre().equals(nombre.getNombre())) {
-        return e;
-      }
+  Estacion obtenerEstacion(String nombreEstacion, char linea) {
+  return adyacencias.keySet().stream()
+                    .filter(e -> e.getNombre().equals(nombreEstacion) && e.getLinea() == linea)
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("Estación no encontrada: " + nombreEstacion + " Línea: " + linea));
     }
-    throw new IllegalArgumentException("Estación no encontrada: " + nombre);
-  }
 
   // Método para obtener todas las estaciones.
   public List<Estacion> obtenerEstaciones() {
@@ -92,4 +91,55 @@ public class Grafo {
     }
     return ruta;
   }
+
+  public void mostrarEstacionesYConexionesPorLinea() {
+    // Agrupar estaciones por línea
+    Map<Character, List<Estacion>> estacionesPorLinea = new HashMap<>();
+    for (Estacion estacion : this.obtenerEstaciones()) {
+        estacionesPorLinea.computeIfAbsent(estacion.getLinea(), k -> new ArrayList<>()).add(estacion);
+    }
+
+    // Ordenar las líneas
+    List<Character> lineasOrdenadas = new ArrayList<>(estacionesPorLinea.keySet());
+    Collections.sort(lineasOrdenadas);
+
+    // Imprimir las estaciones y conexiones por línea
+    for (char linea : lineasOrdenadas) {
+        String colorLinea = obtenerColorANSIPorLinea(linea);
+        System.out.println("Línea " + colorLinea + linea + ANSI_RESET);
+
+        List<Estacion> estaciones = estacionesPorLinea.get(linea);
+        for (Estacion estacion : estaciones) {
+            System.out.println("  Estación: " + colorLinea + estacion.getNombre() + ANSI_RESET);
+            List<Conexion> conexiones = this.obtenerConexiones(estacion);
+            for (Conexion conexion : conexiones) {
+                Estacion destino = conexion.getDestino();
+                String colorDestino = obtenerColorANSIPorLinea(destino.getLinea()); // Usa el color de la línea destino
+                System.out.println("    - Conexión a: " + colorDestino + destino.getNombre() + " con un tiempo de: " + conexion.getTiempo() + " minutos." + ANSI_RESET);
+            }
+        }
+    }
+}
+
+    
+private String obtenerColorANSIPorLinea(char linea) {
+        switch (linea) {
+            case 'A':
+                return ANSI_RED;
+            case 'B':
+                return ANSI_BLUE;
+            case 'C':
+                return ANSI_GREEN;
+            case 'D':
+                return ANSI_YELLOW;
+            // Agrega más colores para otras líneas si es necesario
+            default:
+                return ANSI_RESET; // Color predeterminado
+        }
+    }
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
 }

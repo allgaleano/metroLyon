@@ -38,7 +38,6 @@ public class MetroGUI extends JFrame {
     protected void paintComponent(Graphics g) {
       super.paintComponent(g);
 
-      
       for (Estacion estacion : metro.obtenerEstaciones()) {
         // Convierte las coordenadas geográficas a coordenadas del plano.
         Point punto = coordenadaPlano.convertirCoordenadas(
@@ -59,8 +58,12 @@ public class MetroGUI extends JFrame {
             destino.getLatitud(),
             destino.getLongitud()
           );
-          g.setColor(obtenerColorPorLinea(estacion.getLinea()));
-          g.drawLine(punto.x, punto.y, puntoDestino.x, puntoDestino.y);
+
+          Color colorLinea = obtenerColorPorLinea(estacion);
+          if (!conexion.getDestino().getNombre().equals(estacion.getNombre())) {
+            g.setColor(colorLinea);
+            g.drawLine(punto.x, punto.y, puntoDestino.x, puntoDestino.y);
+          }
         }
         g.setColor(Color.BLACK);
       }
@@ -85,20 +88,21 @@ public class MetroGUI extends JFrame {
     return new double[] { minX, minY, maxX, maxY };
   }
 
-  private Color obtenerColorPorLinea(char linea) {
-    switch (linea) {
-        case 'A':
-            return Color.RED;
-        case 'B':
-            return Color.BLUE;
-        case 'C':
-            return Color.GREEN;
-        case 'D':
-            return Color.YELLOW;
-        // Agrega más casos según sea necesario
-        default:
-            return Color.BLACK; // Un color predeterminado si no se reconoce la línea
-    }
-}
+  private Color obtenerColorPorLinea(Estacion estacion) {
+    char linea = estacion.getLinea();
 
+    switch (linea) {
+      case 'A':
+        return Color.RED;
+      case 'B':
+        return Color.BLUE;
+      case 'C':
+        return Color.GREEN;
+      case 'D':
+        return Color.YELLOW;
+      // Agrega más casos según sea necesario
+      default:
+        return Color.BLACK; // Un color predeterminado si no se reconoce la línea
+    }
+  }
 }

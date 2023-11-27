@@ -385,6 +385,30 @@ public class Main {
     
     metro.agregarConexion(perrache_A, ampere_victor_hugo_A, 1);
 
+    metro.agregarConexion(garre_dOullins_B, stade_de_gerland_B, 2);
+
+    metro.agregarConexion(stade_de_gerland_B, garre_dOullins_B, 3);
+    metro.agregarConexion(stade_de_gerland_B, debourg_B, 2);
+
+    metro.agregarConexion(debourg_B, stade_de_gerland_B, 3);
+    metro.agregarConexion(debourg_B, place_jean_jaures_B, 2);
+    
+    metro.agregarConexion(place_jean_jaures_B, debourg_B, 1);
+    metro.agregarConexion(place_jean_jaures_B, jean_mace_B, 2);
+    
+    metro.agregarConexion(jean_mace_B, place_jean_jaures_B, 2);
+    metro.agregarConexion(jean_mace_B, saxe_gambetta_B, 2);
+
+
+    metro.agregarConexion(saxe_gambetta_B, jean_mace_B, 2);
+    metro.agregarConexion(saxe_gambetta_B, saxe_gambetta_D, 3);
+    metro.agregarConexion(saxe_gambetta_B, place_guichard_bourse_du_travail_B, 2);
+
+    metro.agregarConexion(place_guichard_bourse_du_travail_B, saxe_gambetta_B, 2);
+    metro.agregarConexion(place_guichard_bourse_du_travail_B, gare_partdieu_vmerle_B, 2);
+
+    metro.mostrarEstacionesYConexionesPorLinea();
+
     SwingUtilities.invokeLater(() -> {
         new MetroGUI(metro).setVisible(true);
     });
