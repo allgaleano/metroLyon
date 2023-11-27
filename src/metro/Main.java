@@ -399,13 +399,82 @@ public class Main {
     metro.agregarConexion(jean_mace_B, place_jean_jaures_B, 2);
     metro.agregarConexion(jean_mace_B, saxe_gambetta_B, 2);
 
-
     metro.agregarConexion(saxe_gambetta_B, jean_mace_B, 2);
     metro.agregarConexion(saxe_gambetta_B, saxe_gambetta_D, 3);
     metro.agregarConexion(saxe_gambetta_B, place_guichard_bourse_du_travail_B, 2);
 
     metro.agregarConexion(place_guichard_bourse_du_travail_B, saxe_gambetta_B, 2);
     metro.agregarConexion(place_guichard_bourse_du_travail_B, gare_partdieu_vmerle_B, 2);
+
+    metro.agregarConexion(gare_partdieu_vmerle_B, place_guichard_bourse_du_travail_B, 2);
+    metro.agregarConexion(gare_partdieu_vmerle_B, brotteaux_B, 1);
+    
+    metro.agregarConexion(brotteaux_B, gare_partdieu_vmerle_B, 2);
+    metro.agregarConexion(brotteaux_B, charpennes_charles_hernu_B, 2);
+
+    metro.agregarConexion(cuire_C, henon_C, 2);
+
+    metro.agregarConexion(henon_C, cuire_C, 2);
+    metro.agregarConexion(henon_C, croix_rousse_C, 3);
+    
+    metro.agregarConexion(croix_rousse_C, henon_C, 2);
+    metro.agregarConexion(croix_rousse_C, croix_paquet_C, 2);
+    
+    metro.agregarConexion(croix_paquet_C, croix_rousse_C, 2);
+    metro.agregarConexion(croix_paquet_C, hote_de_ville_C, 2);
+    
+    metro.agregarConexion(hote_de_ville_C, croix_paquet_C, 2);
+    metro.agregarConexion(hote_de_ville_C, hote_de_ville_A, 8);
+
+    metro.agregarConexion(gare_de_vaise_D, valmy_D, 1);
+    
+    metro.agregarConexion(valmy_D, gare_de_vaise_D, 1);
+    metro.agregarConexion(valmy_D, gorge_de_loup_D, 2);
+    
+    metro.agregarConexion(gorge_de_loup_D, valmy_D, 1);
+    metro.agregarConexion(gorge_de_loup_D, vieux_lyon_D, 3);
+    
+    metro.agregarConexion(vieux_lyon_D, gorge_de_loup_D, 3);
+    metro.agregarConexion(vieux_lyon_D, fourviere_D, 3);
+    metro.agregarConexion(fourviere_D, vieux_lyon_D, 3);
+    metro.agregarConexion(vieux_lyon_D, minime_theatres_romains_D, 2);
+    metro.agregarConexion(minime_theatres_romains_D, vieux_lyon_D, 2);
+    metro.agregarConexion(minime_theatres_romains_D, st_just_D, 2);
+    metro.agregarConexion(vieux_lyon_D, bellecour_D, 2);
+    
+    metro.agregarConexion(bellecour_D, vieux_lyon_D, 1);
+    metro.agregarConexion(bellecour_D, bellecour_A, 3);
+    metro.agregarConexion(bellecour_D, guillotiere_D, 2);
+
+    metro.agregarConexion(guillotiere_D, bellecour_D, 1);
+    metro.agregarConexion(guillotiere_D, saxe_gambetta_D, 1);
+    
+    metro.agregarConexion(saxe_gambetta_D, guillotiere_D, 1);
+    metro.agregarConexion(saxe_gambetta_D, saxe_gambetta_B, 3);
+    metro.agregarConexion(saxe_gambetta_D, garibaldi_D, 1);
+
+    metro.agregarConexion(garibaldi_D, saxe_gambetta_D, 1);    
+    metro.agregarConexion(garibaldi_D, sans_souci_D, 2);    
+    
+    metro.agregarConexion(sans_souci_D, garibaldi_D, 1);
+    metro.agregarConexion(sans_souci_D, monplaisir_lumiere_D, 1);
+    
+    metro.agregarConexion(monplaisir_lumiere_D, sans_souci_D, 1);
+    metro.agregarConexion(monplaisir_lumiere_D, grange_blanche_D, 1); 
+    
+    metro.agregarConexion(grange_blanche_D, monplaisir_lumiere_D, 1);
+    metro.agregarConexion(grange_blanche_D, laennec_D, 2);
+    
+    metro.agregarConexion(laennec_D, grange_blanche_D, 1);
+    metro.agregarConexion(laennec_D, mermoz_pinel_D, 1);
+    
+    metro.agregarConexion(mermoz_pinel_D, laennec_D, 1);
+    metro.agregarConexion(mermoz_pinel_D, parilly_D, 2);
+    
+    metro.agregarConexion(parilly_D, mermoz_pinel_D, 2);
+    metro.agregarConexion(parilly_D, gare_de_venissieux_D, 2);
+
+    metro.agregarConexion(gare_de_venissieux_D, parilly_D, 3);
 
     metro.mostrarEstacionesYConexionesPorLinea();
 
