@@ -1,5 +1,7 @@
 package src.metro;
 
+import java.util.List;
+
 import javax.swing.SwingUtilities;
 
 public class Main {
@@ -478,8 +480,21 @@ public class Main {
 
     metro.mostrarEstacionesYConexionesPorLinea();
 
+    List<Estacion> resultado = metro.aStar(parilly_D, foch_A);
+    
+    printRuta(resultado);
+
     SwingUtilities.invokeLater(() -> {
         new MetroGUI(metro).setVisible(true);
     });
+}
+    private static void printRuta(List<Estacion> res) {
+        System.out.println("---------------RUTA BEGIN----------------");
+        for(Estacion estacion : res) {
+            String infoEstacion = String.format("Estación: %s - Línea: %s", estacion.getNombre(), estacion.getLinea());
+            System.out.println(infoEstacion);
+        }
+        System.out.println("------------------END--------------------");
     }
+
 }
