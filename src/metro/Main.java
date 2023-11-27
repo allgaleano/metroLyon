@@ -480,6 +480,7 @@ public class Main {
 
     metro.mostrarEstacionesYConexionesPorLinea();
 
+    // AQUÍ ES DONDE SE COMPRUEBAN LOS RESULTADOS
     List<Estacion> resultado = metro.aStar(parilly_D, foch_A);
     
     printRuta(resultado);
